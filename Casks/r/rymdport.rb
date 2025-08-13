@@ -1,6 +1,6 @@
 cask "rymdport" do
-  version "3.9.0"
-  sha256 "20294e531c533d8702c9f9f3aa39426290aa62634c0a5c36541bcf3620570a85"
+  version "3.9.1"
+  sha256 "f1a492e9b024a6dd68fdc2a909965f40dc898b66b07b4de5be5204e83bac9a08"
 
   url "https://github.com/Jacalz/rymdport/releases/download/v#{version}/rymdport-v#{version}-macOS-arm64.zip"
   name "Rymdport"
