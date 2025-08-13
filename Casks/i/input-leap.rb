@@ -1,13 +1,14 @@
 cask "input-leap" do
-  version "3.0.2"
-  sha256 "e7a27f187e4e97f724e7b0ae9f9490be27d3e81a6cac0e3cf85654b37f28b1a3"
+  version "3.0.3"
+  sha256 "131745b9be83cbee825df6d0975d1da0c13e32ad10e11109c0f4251ac21661f4"
 
-  url "https://github.com/input-leap/input-leap/releases/download/v#{version}/InputLeap_#{version}_macos_AppleSilicon.dmg"
+  url "https://github.com/input-leap/input-leap/releases/download/v#{version}/macOS-Apple_Silicon-debug-v#{version}.tar.gz"
   name "Input Leap"
   desc "Open-source KVM software"
   homepage "https://github.com/input-leap/input-leap"
 
   depends_on macos: ">= :catalina"
+  container nested: "macOS-Apple_Silicon-debug/InputLeap-macOS-Apple_Silicon.tar.gz"
 
   app "InputLeap.app"
 
