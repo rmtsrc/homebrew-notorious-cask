@@ -12,6 +12,12 @@ cask "input-leap" do
 
   app "InputLeap.app"
 
+  caveats do
+    <<~EOS
+      Requires installation using the --no-quarantine parameter
+    EOS
+  end
+
   zap trash: [
     "~/Library/Application Support/InputLeap",
     "~/Library/Saved Application State/InputLeap.savedState",
