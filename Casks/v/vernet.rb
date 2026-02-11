@@ -17,9 +17,14 @@ cask "vernet" do
 
   app "vernet.app"
 
+  postflight do
+    system_command '/usr/bin/xattr', args: ['-r', '-d', 'com.apple.quarantine', "#{appdir}/vernet.app"]
+  end
+
   caveats do
     <<~EOS
-      Requires installation using the --no-quarantine parameter
+      This cask will remove the quarantine attribute from the installed application by running:
+        xattr -r -d com.apple.quarantine "#{appdir}/vernet.app"
     EOS
   end
 

@@ -12,9 +12,14 @@ cask "input-leap" do
 
   app "InputLeap.app"
 
+  postflight do
+    system_command '/usr/bin/xattr', args: ['-r', '-d', 'com.apple.quarantine', "#{appdir}/InputLeap.app"]
+  end
+
   caveats do
     <<~EOS
-      Requires installation using the --no-quarantine parameter
+      This cask will remove the quarantine attribute from the installed application by running:
+        xattr -r -d com.apple.quarantine "#{appdir}/InputLeap.app"
     EOS
   end
 

@@ -13,9 +13,14 @@ cask "rymdport" do
 
   # No zap stanza required
 
+  postflight do
+    system_command '/usr/bin/xattr', args: ['-r', '-d', 'com.apple.quarantine', "#{appdir}/Rymdport.app"]
+  end
+
   caveats do
     <<~EOS
-      Requires installation using the --no-quarantine parameter
+      This cask will remove the quarantine attribute from the installed application by running:
+        xattr -r -d com.apple.quarantine "#{appdir}/Rymdport.app"
     EOS
   end
 end
