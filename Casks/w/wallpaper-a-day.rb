@@ -1,6 +1,6 @@
 cask "wallpaper-a-day" do
-  version "0.2.6"
-  sha256 "5da3c128cc56ec5483efe8d7efdbff7dad7238664c0b19b67a0705f9eb6a450b"
+  version "0.3.2"
+  sha256 "48fe3b32ac9a752ebcb69788be047e26bafdd15486c78a7e2bec961eff60d1b7"
 
   url "https://github.com/RobinNaumann/wallpaper_a_day/releases/download/v#{version}/Wallpaper.a.Day.app.zip",
       verified: "github.com/RobinNaumann/"
