@@ -7,7 +7,7 @@ cask "input-leap" do
   desc "Open-source KVM software"
   homepage "https://github.com/input-leap/input-leap"
 
-  depends_on macos: ">= :catalina"
+  depends_on macos: :catalina
   container nested: "macOS-Apple_Silicon-debug/InputLeap-macOS-Apple_Silicon.tar.gz"
 
   app "InputLeap.app"

@@ -7,7 +7,7 @@ cask "rymdport" do
   desc "Cross-platform application for easy encrypted file, folder, and text sharing between devices"
   homepage "https://github.com/Jacalz/rymdport"
 
-  depends_on macos: ">= :catalina"
+  depends_on macos: :catalina
 
   app "Rymdport.app"
 

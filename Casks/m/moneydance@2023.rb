@@ -16,7 +16,7 @@ cask "moneydance@2023" do
     end
   end
 
-  depends_on macos: ">= :el_capitan"
+  depends_on macos: :el_capitan
 
   app "Moneydance.app"
 
