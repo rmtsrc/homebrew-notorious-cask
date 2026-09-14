@@ -2,8 +2,7 @@ cask "vernet" do
   version "1.3.4+42"
   sha256 "accc38933d2cfc2fd48376b594075ab3a742ec359cee7a2a56d16a65864d384c"
 
-  url "https://github.com/osociety/vernet/releases/download/v#{version}/Vernet-v#{version}-macos.dmg",
-      verified: "github.com/osociety/"
+  url "https://github.com/osociety/vernet/releases/download/v#{version}/Vernet-v#{version}-macos.dmg"
   name "Vernet"
   desc "Network Analyzer and Monitoring Tool"
   homepage "https://osociety.github.io/vernet/"
@@ -17,8 +16,8 @@ cask "vernet" do
 
   app "vernet.app"
 
-  postflight do
-    system_command '/usr/bin/xattr', args: ['-r', '-d', 'com.apple.quarantine', "#{appdir}/vernet.app"]
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{appdir}}/vernet.app"]
   end
 
   caveats do

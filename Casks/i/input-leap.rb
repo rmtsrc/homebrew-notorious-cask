@@ -12,8 +12,8 @@ cask "input-leap" do
 
   app "InputLeap.app"
 
-  postflight do
-    system_command '/usr/bin/xattr', args: ['-r', '-d', 'com.apple.quarantine', "#{appdir}/InputLeap.app"]
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{appdir}}/InputLeap.app"]
   end
 
   caveats do

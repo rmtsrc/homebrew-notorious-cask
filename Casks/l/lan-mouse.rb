@@ -11,8 +11,8 @@ cask "lan-mouse" do
 
   app "Lan Mouse.app"
 
-  postflight do
-    system_command '/usr/bin/xattr', args: ['-r', '-d', 'com.apple.quarantine', "#{appdir}/Lan Mouse.app"]
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{appdir}}/Lan Mouse.app"]
   end
 
   caveats do
