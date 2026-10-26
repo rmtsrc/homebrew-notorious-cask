@@ -8,8 +8,9 @@ cask "vernet" do
   homepage "https://osociety.github.io/vernet/"
 
   livecheck do
-    url :url
+    url "https://github.com/osociety/vernet"
     strategy :github_latest
+    regex(/^v?(\d+(?:\.\d+)*\+\d+)$/)
   end
 
   depends_on macos: :ventura
