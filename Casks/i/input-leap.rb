@@ -7,7 +7,7 @@ cask "input-leap" do
   desc "Open-source KVM software"
   homepage "https://github.com/input-leap/input-leap"
 
-  depends_on macos: :catalina
+  depends_on :macos
   container nested: "macOS-Apple_Silicon-debug/InputLeap-macOS-Apple_Silicon.tar.gz"
 
   app "InputLeap.app"
@@ -16,15 +16,15 @@ cask "input-leap" do
     run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{appdir}}/InputLeap.app"]
   end
 
+  zap trash: [
+    "~/Library/Application Support/InputLeap",
+    "~/Library/Saved Application State/InputLeap.savedState",
+  ]
+
   caveats do
     <<~EOS
       This cask will remove the quarantine attribute from the installed application by running:
         xattr -r -d com.apple.quarantine "#{appdir}/InputLeap.app"
     EOS
   end
-
-  zap trash: [
-    "~/Library/Application Support/InputLeap",
-    "~/Library/Saved Application State/InputLeap.savedState",
-  ]
 end
