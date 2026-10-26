@@ -7,7 +7,7 @@ cask "lan-mouse" do
   desc "Mouse & keyboard sharing via LAN"
   homepage "https://github.com/feschber/lan-mouse"
 
-  depends_on macos: :catalina
+  depends_on :macos
 
   app "Lan Mouse.app"
 
@@ -26,4 +26,10 @@ cask "lan-mouse" do
     "~/.config/lan-mouse",
     "~/Library/Preferences/de.feschber.LanMouse.plist",
   ]
+
+  livecheck do
+    url :homepage
+    strategy :github_latest
+    regex(/^v?(\d+(?:\.\d+)+)$/)
+  end
 end
