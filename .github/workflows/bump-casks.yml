@@ -1,0 +1,58 @@
+name: Bump Casks
+
+on:
+  schedule:
+    - cron: "0 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  bump:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout tap
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@2026.10.19.1
+
+      - name: Bump casks (livecheck)
+        uses: LanikSJ/homebrew-bump-cask@v3
+        with:
+          token: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+          tap: rmtsrc/notorious-cask
+          livecheck: true
+
+      - name: Auto-merge bump PRs from the token owner
+        if: ${{ always() }}
+        env:
+          GH_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          author_login="$(gh api user --jq '.login')"
+          echo "Authenticated GitHub user: ${author_login}"
+
+          prs_file="$(mktemp)"
+          gh pr list --repo rmtsrc/notorious-cask --state open --limit 100 \
+            --author "${author_login}" --json number,headRefName,author \
+            --jq '.[] | select(.headRefName|startswith("bump-")) | .number' > "$prs_file"
+
+          if [ ! -s "$prs_file" ]; then
+            echo "No open bump PRs authored by ${author_login} to auto-merge."
+            rm -f "$prs_file"
+            exit 0
+          fi
+
+          while IFS= read -r pr; do
+            [ -n "$pr" ] || continue
+            echo "Enabling auto-merge for PR #${pr}"
+            gh pr merge "$pr" --repo rmtsrc/notorious-cask --auto --merge --delete-branch
+          done < "$prs_file"
+
+          rm -f "$prs_file"
