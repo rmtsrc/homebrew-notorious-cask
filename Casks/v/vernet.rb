@@ -1,6 +1,6 @@
 cask "vernet" do
-  version "1.3.4+42"
-  sha256 "accc38933d2cfc2fd48376b594075ab3a742ec359cee7a2a56d16a65864d384c"
+  version "1.4.12+69"
+  sha256 "d672c9bf674fb1154bb2ceb635023e1832bc60adc989477af271a6f93da74ca2"
 
   url "https://github.com/osociety/vernet/releases/download/v#{version}/Vernet-v#{version}-macos.dmg"
   name "Vernet"
@@ -13,7 +13,7 @@ cask "vernet" do
     regex(/^v?(\d+(?:\.\d+)*\+\d+)$/)
   end
 
-  depends_on macos: :ventura
+  depends_on macos: :monterey
 
   app "vernet.app"
 
@@ -21,15 +21,15 @@ cask "vernet" do
     run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "{{appdir}}/vernet.app"]
   end
 
+  zap trash: [
+    "~/Library/Application Scripts/org.fsociety.vernet.vernet",
+    "~/Library/Containers/org.fsociety.vernet.vernet",
+  ]
+
   caveats do
     <<~EOS
       This cask will remove the quarantine attribute from the installed application by running:
         xattr -r -d com.apple.quarantine "#{appdir}/vernet.app"
     EOS
   end
-
-  zap trash: [
-    "~/Library/Application Scripts/org.fsociety.vernet.vernet",
-    "~/Library/Containers/org.fsociety.vernet.vernet",
-  ]
 end
