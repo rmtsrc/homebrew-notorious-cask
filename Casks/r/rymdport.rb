@@ -4,10 +4,10 @@ cask "rymdport" do
 
   url "https://github.com/Jacalz/rymdport/releases/download/v#{version}/rymdport-v#{version}-macOS-arm64.zip"
   name "Rymdport"
-  desc "Cross-platform application for easy encrypted file, folder, and text sharing between devices"
+  desc "Cross-platform app for encrypted file, folder, and text sharing between devices"
   homepage "https://github.com/Jacalz/rymdport"
 
-  depends_on macos: :catalina
+  depends_on :macos
 
   app "Rymdport.app"
 

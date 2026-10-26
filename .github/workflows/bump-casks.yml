@@ -1,0 +1,41 @@
+name: Bump Casks
+
+on:
+  schedule:
+    - cron: "0 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  bump:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout tap
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Delete stale bump branches
+        env:
+          GH_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for ref in $(git ls-remote --heads origin 'bump-*' | awk '{print $2}'); do
+            branch="${ref#refs/heads/}"
+            echo "Deleting stale remote bump branch: $branch"
+            git push "https://x-access-token:${GH_TOKEN}@github.com/rmtsrc/notorious-cask.git" --delete "$branch" || true
+          done
+
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@2026.10.19.1
+
+      - name: Bump casks (livecheck)
+        uses: LanikSJ/homebrew-bump-cask@v3
+        with:
+          token: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+          tap: rmtsrc/notorious-cask
+          livecheck: true
