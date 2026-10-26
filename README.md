@@ -8,4 +8,4 @@ A [Homebrew Cask](https://github.com/Homebrew/homebrew-cask) list of useful appl
 
 1. Install [Homebrew](https://brew.sh)
 2. Tap this repo: `brew tap rmtsrc/notorious-cask`
-3. Install a notorious cask: *e.g. `brew install --cask input-leap`*
+3. Install a notorious cask: *e.g. `brew install --cask mpv-app`*

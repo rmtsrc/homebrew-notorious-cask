@@ -4,7 +4,7 @@ cask "wallpaper-a-day" do
 
   url "https://github.com/RobinNaumann/wallpaper_a_day/releases/download/v#{version}/Wallpaper.a.Day.app.zip"
   name "Wallpaper a Day"
-  desc "Daily wallpapers for your mac"
+  desc "Daily wallpapers"
   homepage "https://apps.robbb.in/wallpaper_a_day"
 
   livecheck do
