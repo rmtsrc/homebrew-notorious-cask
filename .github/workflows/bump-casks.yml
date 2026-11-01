@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set up Homebrew
-        uses: Homebrew/actions/setup-homebrew@2026.10.19.1
+        uses: Homebrew/actions/setup-homebrew@2026.10.26.1
 
       - name: Bump casks (livecheck)
         uses: LanikSJ/homebrew-bump-cask@v3
