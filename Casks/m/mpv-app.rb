@@ -1,27 +1,26 @@
 cask "mpv-app" do
-  version "0.41.0"
+  arch arm: "arm", intel: "intel"
 
-  base_url = "https://github.com/mpv-player/mpv/releases/download/v#{version}/mpv-v#{version}-macos"
+  version "0.42.0"
 
-  on_arm do
-    on_sonoma :or_older do
-      sha256 "5c96f9b21355fc0a11d2e2161ad65f33031070e9fb3f6bd9865fb459b94587e6"
-      url "#{base_url}-14-arm.zip"
-    end
-    on_sequoia do
-      sha256 "489cf6a54f57c54f86ad8d7cedaf5bb26848770d58dc059021214e2f689ee799"
-      url "#{base_url}-15-arm.zip"
-    end
-    on_tahoe :or_newer do
-      sha256 "09820c0d84f6687446b84eb9df81fcf6a26ebe869cee58ea1857d7948cfb7c71"
-      url "#{base_url}-26-arm.zip"
-    end
+  on_sequoia do
+    sha256 arm:   "be1b8d2445e6880860869c080b8710dee189721f1fa4689840db6a2c10d7be69",
+           intel: "2d2f34350ff844b6014c35f21ca142937275e19c0c673150a8564fcd2f3bfa14"
+
+    url "https://github.com/mpv-player/mpv/releases/download/v#{version}/mpv-v#{version}-macos-15-#{arch}.zip"
   end
-  on_intel do
-    on_sequoia :or_newer do
-      sha256 "41003617ab4f7784394b5ddea7ce51b3e0838e8cfc8166ad1a378b2eda3b583c"
-      url "#{base_url}-15-intel.zip"
-    end
+  on_tahoe do
+    sha256 arm:   "81bffbda01d69eec566ee3f576a2d0089447ba4b21dece3954f08109d5435ce1",
+           intel: "2d2f34350ff844b6014c35f21ca142937275e19c0c673150a8564fcd2f3bfa14"
+
+    url "https://github.com/mpv-player/mpv/releases/download/v#{version}/mpv-v#{version}-macos-#{(arch == "arm") ? 26 : 15}-#{arch}.zip"
+  end
+  on_golden_gate :or_newer do
+    sha256 "87c7af5d908eb85217899b57d9a24cc9f5316daa93bb6b4a494a34cea25330b7"
+
+    url "https://github.com/mpv-player/mpv/releases/download/v#{version}/mpv-v#{version}-macos-27-arm.zip"
+
+    depends_on arch: :arm64
   end
 
   name "mpv"
@@ -34,7 +33,7 @@ cask "mpv-app" do
   end
 
   conflicts_with cask: ["mpv-macwrapper", "mpv-official", "stolendata-mpv"]
-  depends_on :macos
+  depends_on macos: :sequoia
   container nested: "mpv.tar.gz"
 
   app "mpv.app"

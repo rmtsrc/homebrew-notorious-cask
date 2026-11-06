@@ -21,9 +21,47 @@ jobs:
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@2026.10.26.1
 
+      - name: List casks (excluding mpv-app)
+        id: casks
+        run: |
+          list="$(git ls-files 'Casks/*/*.rb' | sed -E 's#.*/##; s#\.rb$##' | grep -vx mpv-app | paste -sd, -)"
+          echo "list=$list" >> "$GITHUB_OUTPUT"
+
       - name: Bump casks (livecheck)
+        if: steps.casks.outputs.list != ''
         uses: LanikSJ/homebrew-bump-cask@v3
         with:
           token: ${{ secrets.HOMEBREW_TAP_TOKEN }}
           tap: rmtsrc/notorious-cask
+          cask: ${{ steps.casks.outputs.list }}
           livecheck: true
+
+  bump-mpv-app:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout tap
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@2026.10.26.1
+
+      - name: Bump mpv-app
+        id: bump
+        run: |
+          version="$(curl -fsSL https://api.github.com/repos/mpv-player/mpv/releases/latest |
+            ruby -rjson -e 'puts JSON.parse(STDIN.read).fetch("tag_name").sub(/\Av/, "")')"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          brew ruby .github/scripts/bump-mpv-app.rb "$version"
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+          branch: bump-mpv-app-${{ steps.bump.outputs.version }}
+          title: mpv-app ${{ steps.bump.outputs.version }}
+          body: Automated mpv-app bump.
+          base: main
+          add-paths: Casks/m/mpv-app.rb
+          delete-branch: true
