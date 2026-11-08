@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set up Homebrew
-        uses: Homebrew/actions/setup-homebrew@2026.10.26.1
+        uses: Homebrew/actions/setup-homebrew@2026.11.02.1
 
       - name: List casks (excluding mpv-app)
         id: casks
@@ -45,7 +45,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set up Homebrew
-        uses: Homebrew/actions/setup-homebrew@2026.10.26.1
+        uses: Homebrew/actions/setup-homebrew@2026.11.02.1
 
       - name: Bump mpv-app
         id: bump
