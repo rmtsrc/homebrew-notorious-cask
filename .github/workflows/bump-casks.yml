@@ -57,7 +57,7 @@ jobs:
           brew ruby .github/scripts/bump-mpv-app.rb "$version"
 
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.HOMEBREW_TAP_TOKEN }}
           branch: bump-mpv-app-${{ steps.bump.outputs.version }}
