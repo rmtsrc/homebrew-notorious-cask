@@ -1,6 +1,6 @@
 cask "vernet" do
-  version "1.6.1+80"
-  sha256 "78aea342573a2e0c92a3d649ed7a1ded4b2464405b26303ad046bd6bc98be3e6"
+  version "1.6.2+81"
+  sha256 "1c0851587335b3141e3e6a8ac569b93a734bc0bd50563a201169c3b193a1ea4a"
 
   url "https://github.com/osociety/vernet/releases/download/v#{version}/Vernet-v#{version}-macos.dmg"
   name "Vernet"
